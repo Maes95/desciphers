@@ -1,4 +1,5 @@
 var fs = require('fs');
+const Trasponedor = require("../api.js").Trasponedor;
 
 fs.readFile(process.argv[2], 'utf8', function(err, data) {
     if( err ){
@@ -14,20 +15,12 @@ const TOPE = 10;
 
 function procesar(texto){
     for(var i = 1; i < TOPE; i++){
-      trasponer(texto, i)
+      var cadenas = Trasponedor(texto, i);
+      console.log("WITH N = "+i);
+      console.log("__________________________________________");
+      for(var j = 0; j < i; j++){
+        console.log(cadenas[j].slice(0,30));
+      }
+      console.log("__________________________________________");
     }
 }
-
-function trasponer(texto, n){
-  var corte = texto.length / n;
-  var j = 0;
-  console.log("WITH N = "+n);
-  console.log("__________________________________________");
-  while(j < texto.length){
-    console.log(texto.substr(j,corte).slice(0,30));
-    j = j + corte;
-  }
-  console.log("__________________________________________");
-}
-
-module.exports = trasponer;
